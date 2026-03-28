@@ -1,46 +1,19 @@
-using System;
-using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class ClickGeneratePoints : MonoBehaviour
+public class ClickGeneratePoints : PointsBaseGenerator
 {
-    [SerializeField] private float _starterPointsPerClick;
+    private readonly Button _clickButton;
 
-    private decimal _pointsPerClick;
-    private Button _clickButton;
-
-    public static event Action<decimal> PointsGenerated;
-
-    private void OnEnable()
+    public ClickGeneratePoints(Button clickButton, decimal pointsPerSecond)
     {
-        RegisterEvent();
+        _pointsToGenerate = pointsPerSecond;
+        _clickButton = clickButton;
+
+        _clickButton.onClick.AddListener(GeneratePoints);
     }
 
-    private void OnDisable()
+    ~ClickGeneratePoints()
     {
-        UnregisterEvent();
-    }
-
-    private void Awake()
-    {
-        _clickButton = GetComponent<Button>();
-
-        _pointsPerClick = (decimal)_starterPointsPerClick;
-    }
-
-    private void RegisterEvent()
-    {
-        _clickButton.onClick.AddListener(OnClick);
-    }
-
-    private void UnregisterEvent()
-    {
-        _clickButton.onClick.AddListener(OnClick);
-    }
-
-    private void OnClick()
-    {
-        PointsGenerated?.Invoke(_pointsPerClick);
+        _clickButton.onClick.AddListener(GeneratePoints);
     }
 }

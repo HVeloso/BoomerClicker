@@ -332,6 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434433683}
   - component: {fileID: 434433684}
+  - component: {fileID: 434433685}
   m_Layer: 5
   m_Name: Store Tab
   m_TagString: Untagged
@@ -371,6 +372,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7730a7dbfe249194a8bbc26383c19f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &434433685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434433682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b461b76d62c0a2f40b85f2b546c1564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _passiveGeneratorsDatas:
+  - {fileID: 11400000, guid: 018f4b3aaf84d3542a210645cbdb9037, type: 2}
+  - {fileID: 11400000, guid: 6a710e128a500a74389672aefb43bdea, type: 2}
+  - {fileID: 11400000, guid: fd88362071e8dbb45b9b84a62b04989d, type: 2}
+  _storeButtonPrefab: {fileID: 1287408920228418939, guid: 3285755de2bb57e45bb99b353fe47b22, type: 3}
+  _playerWallet: {fileID: 1709274571}
+  _generatorHandler: {fileID: 1093055284}
+  _storeButtonsHolder: {fileID: 2103025399}
 --- !u!1 &466804716
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +405,7 @@ GameObject:
   - component: {fileID: 466804719}
   - component: {fileID: 466804718}
   m_Layer: 5
-  m_Name: Store Button
+  m_Name: Open Store Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -839,6 +860,52 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1093055283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1093055285}
+  - component: {fileID: 1093055284}
+  m_Layer: 0
+  m_Name: Points Generator Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1093055284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093055283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b53143dad3811b4cb40dc9e9c51fae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointsPerClick: 10
+  _clickButton: {fileID: 1312763731}
+--- !u!4 &1093055285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093055283}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 640, y: 360, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1312763729
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +918,6 @@ GameObject:
   - component: {fileID: 1312763733}
   - component: {fileID: 1312763732}
   - component: {fileID: 1312763731}
-  - component: {fileID: 1312763734}
   m_Layer: 5
   m_Name: Generate Points Button
   m_TagString: Untagged
@@ -960,19 +1026,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312763729}
   m_CullTransparentMesh: 1
---- !u!114 &1312763734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312763729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4bd95d277dd24743ac6b7bbf5251d90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _starterPointsPerClick: 1
 --- !u!1 &1390210373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,6 +1186,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1909269118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1909269120}
+  - component: {fileID: 1909269119}
+  m_Layer: 0
+  m_Name: Time Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1909269119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909269118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d1993b83a58c641b16ba8967eea802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1909269120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909269118}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 640, y: 360, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103025398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1241,7 @@ GameObject:
   - component: {fileID: 2103025399}
   - component: {fileID: 2103025401}
   - component: {fileID: 2103025400}
+  - component: {fileID: 2103025402}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1208,6 +1306,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103025398}
   m_CullTransparentMesh: 1
+--- !u!114 &2103025402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103025398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 20
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1217,3 +1341,5 @@ SceneRoots:
   - {fileID: 833079716}
   - {fileID: 1390210376}
   - {fileID: 1709274572}
+  - {fileID: 1909269120}
+  - {fileID: 1093055285}

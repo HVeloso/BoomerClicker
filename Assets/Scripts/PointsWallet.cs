@@ -37,16 +37,24 @@ public class PointsWallet : MonoBehaviour
     
     private void RegisterEvent()
     {
-        ClickGeneratePoints.PointsGenerated += AddPoints;
+        PointsBaseGenerator.PointsGenerated += AddPoints;
     }
 
     private void UnregisterEvent()
     {
-        ClickGeneratePoints.PointsGenerated += AddPoints;
+        PointsBaseGenerator.PointsGenerated -= AddPoints;
     }
 
     private void AddPoints(decimal points)
     {
         CurrentPoints += points;
+    }
+
+    public bool TrySpendPoints(decimal points)
+    {
+        if (points > _currentPoints) return false;
+
+        CurrentPoints -= points;
+        return true;
     }
 }

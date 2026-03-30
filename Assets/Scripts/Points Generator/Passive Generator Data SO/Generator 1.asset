@@ -15,3 +15,4 @@ MonoBehaviour:
   _generatorName: Generator 1
   _pointsPerSeconds: 10
   _price: 50
+  _priceGrowth: 1.2

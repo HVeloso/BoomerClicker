@@ -6,9 +6,7 @@ public class PassiveGeneratorStore : MonoBehaviour
 {
     [SerializeField] private List<PassiveGeneratorData> _passiveGeneratorsDatas;
     [SerializeField] private GameObject _storeButtonPrefab;
-    [Space]
     [SerializeField] private PointsWallet _playerWallet;
-    [Space]
     [SerializeField] private RectTransform _storeButtonsHolder;
 
     private readonly List<GeneratorStoreItem> _storeItems = new();

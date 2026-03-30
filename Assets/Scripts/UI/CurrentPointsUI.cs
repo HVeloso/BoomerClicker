@@ -1,3 +1,4 @@
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -33,6 +34,16 @@ public class CurrentPointsUI : MonoBehaviour
 
     private void UpdateUI(decimal value)
     {
-        _currentPointsTextMesh.text = value.ToString();
+        string textFormat = CheckNumberHasDecimals(value) ? "N2" : "N0";
+
+        _currentPointsTextMesh.text = value.ToString(textFormat);
+    }
+
+    private bool CheckNumberHasDecimals(decimal value)
+    {
+        // If TRUE the number has decimals
+        // If FALSE the number has not decimals
+
+        return value % 1 != 0;
     }
 }

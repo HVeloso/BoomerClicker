@@ -14,13 +14,11 @@ public class PassivePointsGenerator : PointsBaseGenerator
         _basePointsPerSecond = pointsPerSecond;
 
         RecalculatePointsPerSecond();
-
-        TimerManager.SecondHasPassed += GeneratePoints;
     }
 
-    ~PassivePointsGenerator()
+    public void GeneratePassivePoints()
     {
-        TimerManager.SecondHasPassed -= GeneratePoints;
+        GeneratePoints();
     }
 
     public void AddInstance()

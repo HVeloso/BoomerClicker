@@ -390,7 +390,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd88362071e8dbb45b9b84a62b04989d, type: 2}
   _storeButtonPrefab: {fileID: 1287408920228418939, guid: 3285755de2bb57e45bb99b353fe47b22, type: 3}
   _playerWallet: {fileID: 1709274571}
-  _generatorHandler: {fileID: 1093055284}
   _storeButtonsHolder: {fileID: 2103025399}
 --- !u!1 &466804716
 GameObject:

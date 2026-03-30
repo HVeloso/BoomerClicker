@@ -11,14 +11,25 @@ public class PointsGeneratorHandler : MonoBehaviour
 
     private Dictionary<string, PassivePointsGenerator> _pointsGenerator;
 
+    private void OnEnable()
+    {
+        TimerManager.SecondHasPassed += OnSecondHasPassed;
+        PassiveGeneratorStore.GeneratorBought += AddPassiveGenerator;
+    }
+
+    private void OnDisable()
+    {
+        TimerManager.SecondHasPassed -= OnSecondHasPassed;
+        PassiveGeneratorStore.GeneratorBought -= AddPassiveGenerator;
+    }
+
     private void Awake()
     {
         _mainPointsGenerator = new(_clickButton, (decimal)_pointsPerClick);
-
         _pointsGenerator = new();
     }
 
-    public void AddPassiveGenerator(PassiveGeneratorData generatorData)
+    private void AddPassiveGenerator(PassiveGeneratorData generatorData)
     {
         string generatorName = generatorData.GeneratorName;
 
@@ -27,8 +38,16 @@ public class PointsGeneratorHandler : MonoBehaviour
             generator.AddInstance();
             return;
         }
-        
+
         PassivePointsGenerator newGenerator = new(generatorData.GeneratorName, generatorData.PointsPerSeconds);
         _pointsGenerator.Add(generatorName, newGenerator);
+    }
+
+    private void OnSecondHasPassed()
+    {
+        foreach ((string _, var value) in _pointsGenerator)
+        {
+            value.GeneratePassivePoints();
+        }
     }
 }

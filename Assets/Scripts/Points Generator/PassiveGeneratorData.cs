@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu( fileName = "Generator", menuName = "Base Generator")]
+[CreateAssetMenu(fileName = "Generator", menuName = "Base Generator")]
 public class PassiveGeneratorData : ScriptableObject
 {
     [SerializeField] private string _generatorName;

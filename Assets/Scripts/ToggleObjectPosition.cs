@@ -27,7 +27,7 @@ public class ToggleObjectPosition : MonoBehaviour
         _positionIndex++;
         _positionIndex = (_positionIndex + _positions.Count) % _positions.Count;
     }
-
+    
     private void SetPosition()
     {
         _objectTransform.localPosition = _positions[_positionIndex];

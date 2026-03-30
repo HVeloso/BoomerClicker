@@ -5,16 +5,15 @@ public class PointsWallet : MonoBehaviour
 {
     private decimal _currentPoints;
 
-    public decimal CurrentPoints
+    private decimal CurrentPoints
     {
-        get {  return _currentPoints; }
-        private set
+        get { return _currentPoints; }
+        set
         {
-            if (_currentPoints != value)
-            {
-                _currentPoints = value;
-                PointsChanged?.Invoke(_currentPoints);
-            }
+            if (_currentPoints == value) return;
+
+            _currentPoints = value;
+            PointsChanged?.Invoke(_currentPoints);
         }
     }
 
@@ -34,7 +33,7 @@ public class PointsWallet : MonoBehaviour
     {
         CurrentPoints = 0;
     }
-    
+
     private void RegisterEvent()
     {
         PointsBaseGenerator.PointsGenerated += AddPoints;

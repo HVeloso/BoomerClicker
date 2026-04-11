@@ -8,7 +8,6 @@ public class PointsGeneratorHandler : MonoBehaviour
     [SerializeField] private Button _clickButton;
 
     private ClickGeneratePoints _mainPointsGenerator;
-
     private Dictionary<string, PassivePointsGenerator> _pointsGenerator;
 
     private void OnEnable()
@@ -32,7 +31,7 @@ public class PointsGeneratorHandler : MonoBehaviour
     private void AddPassiveGenerator(PassiveGeneratorData generatorData)
     {
         string generatorName = generatorData.GeneratorName;
-
+        
         if (_pointsGenerator.TryGetValue(generatorName, out PassivePointsGenerator generator))
         {
             generator.AddInstance();

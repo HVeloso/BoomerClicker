@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PassiveGeneratorStore : MonoBehaviour
 {
-    [SerializeField] private List<PassiveGeneratorData> _passiveGeneratorsDatas;
-    [SerializeField] private GameObject _storeButtonPrefab;
     [SerializeField] private PointsWallet _playerWallet;
+    [Space]
+    [SerializeField] private List<PassiveGeneratorData> _passiveGeneratorsDatas;
+    [Space]
+    [SerializeField] private GameObject _storeButtonPrefab;
     [SerializeField] private RectTransform _storeButtonsHolder;
 
     private readonly List<GeneratorStoreItem> _storeItems = new();
@@ -15,6 +17,7 @@ public class PassiveGeneratorStore : MonoBehaviour
 
     private void Awake()
     {
+        // Alterar isso pra quando o jogador abrir a loja.
         InitializeStoreButtons();
     }
 

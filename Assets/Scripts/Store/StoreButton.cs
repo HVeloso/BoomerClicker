@@ -7,9 +7,10 @@ public class StoreButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _nameTextMesh;
     [SerializeField] private TextMeshProUGUI _pointsPerSecondTextMesh;
     [SerializeField] private TextMeshProUGUI _priceTextMesh;
+    [SerializeField] private TextMeshProUGUI _quantityTextMesh;
     [Space]
     [SerializeField] private Button _storeButton;
-
+    
     private BuyGeneratorCommand _buyCommand;
     private GeneratorStoreItem _storeItem;
 
@@ -36,6 +37,7 @@ public class StoreButton : MonoBehaviour
         _nameTextMesh.text = _storeItem.Data.GeneratorName;
         _pointsPerSecondTextMesh.text = $"Points: {_storeItem.Data.PointsPerSeconds}";
         _priceTextMesh.text = $"${_storeItem.CurrentPrice:N0}";
+        _quantityTextMesh.text = $"x{_storeItem.BoughtQuantity}";
     }
 
     private void OnStoreButtonClicked()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    private readonly WaitForSeconds _waitOneSecond = new(1f);
+    private const float SecondsToTickEvent = 1f;
 
     public static event Action SecondHasPassed;
 
@@ -17,20 +17,29 @@ public class TimerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(_calculateSecond);
+        if (_calculateSecond != null)
+            StartCoroutine(_calculateSecond);
     }
 
     private void OnDisable()
     {
-        StopCoroutine(_calculateSecond);
+        if (_calculateSecond != null)
+            StopCoroutine(_calculateSecond);
     }
 
-    private IEnumerator CalculateSecond()
+    private IEnumerator CalculateSecond(float timer = 0)
     {
-        while(true)
+        while (true)
         {
-            yield return _waitOneSecond;
-            SecondHasPassed?.Invoke();
+            timer += Time.deltaTime;
+            
+            while (timer >= SecondsToTickEvent)
+            {
+                timer -= SecondsToTickEvent;
+                SecondHasPassed?.Invoke();
+            }
+
+            yield return null;
         }
     }
 }

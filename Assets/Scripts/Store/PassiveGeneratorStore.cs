@@ -11,9 +11,19 @@ public class PassiveGeneratorStore : MonoBehaviour
     [SerializeField] private GameObject _storeButtonPrefab;
     [SerializeField] private RectTransform _storeButtonsHolder;
 
-    private readonly List<GeneratorStoreItem> _storeItems = new();
+    private readonly List<StoreButton> _storeButtons = new();
 
     public static event Action<PassiveGeneratorData> GeneratorBought;
+
+    private void OnEnable()
+    {
+        PointsWallet.PointsChanged += OnPointsChanged;
+    }
+
+    private void OnDisable()
+    {
+        PointsWallet.PointsChanged -= OnPointsChanged;
+    }
 
     private void Awake()
     {
@@ -25,19 +35,27 @@ public class PassiveGeneratorStore : MonoBehaviour
     {
         foreach (PassiveGeneratorData generatorData in _passiveGeneratorsDatas)
         {
-            GeneratorStoreItem storeItem = new(generatorData);
-            storeItem.Purchased += OnItemPurchased;
-
             GameObject storeButtonObj = Instantiate(_storeButtonPrefab, _storeButtonsHolder);
             StoreButton storeButton = storeButtonObj.GetComponent<StoreButton>();
 
+            GeneratorStoreItem storeItem = new(generatorData);
+            storeItem.Purchased += OnItemPurchased;
+
             BuyGeneratorCommand command = new(_playerWallet, storeItem);
             storeButton.Initialize(storeItem, command);
+
+            _storeButtons.Add(storeButton);
+            storeButton.OnCurrentPointsChanged(_playerWallet.CurrentPoints);
         }
     }
 
     private void OnItemPurchased(GeneratorStoreItem item)
     {
         GeneratorBought?.Invoke(item.Data);
+    }
+
+    private void OnPointsChanged(decimal value)
+    {
+        _storeButtons.ForEach(x => x.OnCurrentPointsChanged(value));
     }
 }

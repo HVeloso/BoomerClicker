@@ -192,6 +192,7 @@ MonoBehaviour:
   _pointsPerSecondTextMesh: {fileID: 84320712485408043}
   _priceTextMesh: {fileID: 6082067374393068245}
   _quantityTextMesh: {fileID: 6951404837193016680}
+  _backgroundImage: {fileID: 4036691164523056056}
   _storeButton: {fileID: 7653265507854739821}
 --- !u!1 &1826181890134379973
 GameObject:

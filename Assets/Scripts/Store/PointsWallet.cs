@@ -4,11 +4,11 @@ using UnityEngine;
 public class PointsWallet : MonoBehaviour
 {
     private decimal _currentPoints;
-
-    private decimal CurrentPoints
+    
+    public decimal CurrentPoints
     {
         get { return _currentPoints; }
-        set
+        private set
         {
             if (_currentPoints == value) return;
 

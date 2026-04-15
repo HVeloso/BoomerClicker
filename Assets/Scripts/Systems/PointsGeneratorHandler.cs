@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class PointsGeneratorHandler : MonoBehaviour
 
     private ClickGeneratePoints _mainPointsGenerator;
     private Dictionary<string, PassivePointsGenerator> _pointsGenerator;
+
+    public static Action<decimal> PointsPerSecondChanged;
 
     private void OnEnable()
     {
@@ -31,15 +34,18 @@ public class PointsGeneratorHandler : MonoBehaviour
     private void AddPassiveGenerator(PassiveGeneratorData generatorData)
     {
         string generatorName = generatorData.GeneratorName;
-        
+
         if (_pointsGenerator.TryGetValue(generatorName, out PassivePointsGenerator generator))
         {
             generator.AddInstance();
-            return;
+        }
+        else
+        {
+            PassivePointsGenerator newGenerator = new(generatorData.GeneratorName, generatorData.PointsPerSeconds);
+            _pointsGenerator.Add(generatorName, newGenerator);
         }
 
-        PassivePointsGenerator newGenerator = new(generatorData.GeneratorName, generatorData.PointsPerSeconds);
-        _pointsGenerator.Add(generatorName, newGenerator);
+        PointsPerSecondChanged?.Invoke(CalculateTotalPoinsPerSecond());
     }
 
     private void OnSecondHasPassed()
@@ -48,5 +54,17 @@ public class PointsGeneratorHandler : MonoBehaviour
         {
             value.GeneratePassivePoints();
         }
+    }
+
+    private decimal CalculateTotalPoinsPerSecond()
+    {
+        decimal total = 0;
+
+        foreach (PassivePointsGenerator generator in _pointsGenerator.Values)
+        {
+            total += generator.PoinsToGenerate;
+        }
+
+        return total;
     }
 }

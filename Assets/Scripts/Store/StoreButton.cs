@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,9 @@ public class StoreButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _priceTextMesh;
     [SerializeField] private TextMeshProUGUI _quantityTextMesh;
     [Space]
+    [SerializeField] private Image _backgroundImage;
     [SerializeField] private Button _storeButton;
-    
+
     private BuyGeneratorCommand _buyCommand;
     private GeneratorStoreItem _storeItem;
 
@@ -32,24 +34,40 @@ public class StoreButton : MonoBehaviour
         Refresh();
     }
 
-    private void Refresh()
+    public void OnCurrentPointsChanged(decimal currentPoints)
     {
-        _nameTextMesh.text = _storeItem.Data.GeneratorName;
-        _pointsPerSecondTextMesh.text = $"Points: {_storeItem.Data.PointsPerSeconds}";
-        _priceTextMesh.text = $"${_storeItem.CurrentPrice:N0}";
-        _quantityTextMesh.text = $"x{_storeItem.BoughtQuantity}";
+        if (currentPoints < _storeItem.CurrentPrice) DeactiveItem();
+        else ActiveItem();
     }
 
     private void OnStoreButtonClicked()
     {
-        if (_buyCommand.Execute())
-        {
-            // Sucessful
-            Refresh();
-        }
-        else
-        {
-            // Fail
-        }
+        if (_buyCommand.Execute()) Refresh();
+    }
+
+    private void Refresh()
+    {
+        _nameTextMesh.text = _storeItem.Data.GeneratorName;
+        _pointsPerSecondTextMesh.text = $"Points: {_storeItem.Data.PointsPerSeconds:N2}";
+        _priceTextMesh.text = $"${_storeItem.CurrentPrice:N0}";
+        _quantityTextMesh.text = $"x{_storeItem.BoughtQuantity}";
+    }
+
+    private void ActiveItem()
+    {
+        _storeButton.interactable = true;
+
+        Color bgColor = _backgroundImage.color;
+        bgColor.a = 1;
+        _backgroundImage.color = bgColor;
+    }
+
+    private void DeactiveItem()
+    {
+        _storeButton.interactable = false;
+
+        Color bgColor = _backgroundImage.color;
+        bgColor.a = 0.5f;
+        _backgroundImage.color = bgColor;
     }
 }

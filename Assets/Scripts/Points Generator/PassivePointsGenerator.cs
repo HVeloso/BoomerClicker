@@ -1,9 +1,8 @@
-using Unity.VisualScripting;
-
 public class PassivePointsGenerator : PointsBaseGenerator
 {
-    public string GeneratorName {  get; private set; }
+    public string GeneratorName { get; private set; }
     public int NumberOfInstances {  get; private set; }
+    public decimal PoinsToGenerate => _pointsToGenerate;
 
     private readonly decimal _basePointsPerSecond;
 

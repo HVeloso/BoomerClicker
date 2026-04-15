@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Generator 3
   m_EditorClassIdentifier: 
   _generatorName: Generator 3
-  _pointsPerSeconds: 60
+  _pointsPerSeconds: 80
   _price: 350
   _priceGrowth: 2.15

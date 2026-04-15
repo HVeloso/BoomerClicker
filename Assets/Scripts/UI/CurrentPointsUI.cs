@@ -1,49 +1,41 @@
-using System.Globalization;
+using System.Collections.Generic;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
 public class CurrentPointsUI : MonoBehaviour
 {
-    private TextMeshProUGUI _currentPointsTextMesh;
+    [Header("Ui Text Components")]
+    [SerializeField] private TextMeshProUGUI _currentPointsTextMesh;
+    [SerializeField] private TextMeshProUGUI _poinstPerSecondTextMesh;
 
     private void OnEnable()
     {
-        RegisterEvent();
+        PointsWallet.PointsChanged += UpdateCurrentPointsUI;
+        PointsGeneratorHandler.PointsPerSecondChanged += UpdatePointsPerSecondUI;
     }
 
     private void OnDisable()
     {
-        UnregisterEvent();
+        PointsWallet.PointsChanged -= UpdateCurrentPointsUI;
+        PointsGeneratorHandler.PointsPerSecondChanged -= UpdatePointsPerSecondUI;
     }
 
-    private void Awake()
+    private void UpdateCurrentPointsUI(decimal value)
     {
-        _currentPointsTextMesh = GetComponent<TextMeshProUGUI>();
+        string format = GetTextFormat(value);
+        _currentPointsTextMesh.text = value.ToString(format);
     }
 
-    private void RegisterEvent()
+    private void UpdatePointsPerSecondUI(decimal value)
     {
-        PointsWallet.PointsChanged += UpdateUI;
+        string format = GetTextFormat(value);
+        _poinstPerSecondTextMesh.text = $"{value.ToString(format)} /s";
     }
 
-    private void UnregisterEvent()
+    private string GetTextFormat(decimal value)
     {
-        PointsWallet.PointsChanged -= UpdateUI;
-    }
-
-    private void UpdateUI(decimal value)
-    {
-        string textFormat = CheckNumberHasDecimals(value) ? "N2" : "N0";
-
-        _currentPointsTextMesh.text = value.ToString(textFormat);
-    }
-
-    private bool CheckNumberHasDecimals(decimal value)
-    {
-        // If TRUE the number has decimals
-        // If FALSE the number has not decimals
-
-        return value % 1 != 0;
+        bool hasDecimal = value % 1 != 0;
+        return hasDecimal ? "N2" : "N0";
     }
 }

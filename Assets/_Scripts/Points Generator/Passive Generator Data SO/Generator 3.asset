@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10a3ec09b599fe742b78664b35d41ade, type: 3}
-  m_Name: Generator 2
+  m_Name: Generator 3
   m_EditorClassIdentifier: 
-  _generatorName: Generator 2
-  _pointsPerSeconds: 35
-  _price: 80
-  _priceGrowth: 1.6
+  _generatorName: Generator 3
+  _pointsPerSeconds: 80
+  _price: 350
+  _priceGrowth: 1.35

@@ -48,8 +48,8 @@ public class StoreButton : MonoBehaviour
     private void Refresh()
     {
         _nameTextMesh.text = _storeItem.Data.GeneratorName;
-        _pointsPerSecondTextMesh.text = $"Points: {_storeItem.Data.PointsPerSeconds:N2}";
-        _priceTextMesh.text = $"${_storeItem.CurrentPrice:N0}";
+        _pointsPerSecondTextMesh.text = $"Points: {_storeItem.Data.PointsPerSeconds:N0}";
+        _priceTextMesh.text = $"${_storeItem.CurrentPrice:N2}";
         _quantityTextMesh.text = $"x{_storeItem.BoughtQuantity}";
     }
 

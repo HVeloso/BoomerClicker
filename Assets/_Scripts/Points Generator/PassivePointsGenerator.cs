@@ -4,13 +4,11 @@ public class PassivePointsGenerator : PointsBaseGenerator
     public int NumberOfInstances {  get; private set; }
     public decimal PoinsToGenerate => _pointsToGenerate;
 
-    private readonly decimal _basePointsPerSecond;
-
     public PassivePointsGenerator(string generatorName, decimal pointsPerSecond)
+        : base(pointsPerSecond)
     {
         NumberOfInstances = 1;
         GeneratorName = generatorName;
-        _basePointsPerSecond = pointsPerSecond;
 
         RecalculatePointsPerSecond();
     }

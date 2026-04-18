@@ -5,10 +5,9 @@ public class ClickGeneratePoints : PointsBaseGenerator
     private readonly Button _clickButton;
 
     public ClickGeneratePoints(Button clickButton, decimal pointsPerSecond)
+        : base(pointsPerSecond)
     {
-        _pointsToGenerate = pointsPerSecond;
         _clickButton = clickButton;
-
         _clickButton.onClick.AddListener(GeneratePoints);
     }
 

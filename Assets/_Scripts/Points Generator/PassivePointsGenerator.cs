@@ -10,7 +10,7 @@ public class PassivePointsGenerator : PointsBaseGenerator
         NumberOfInstances = 1;
         GeneratorName = generatorName;
 
-        RecalculatePointsPerSecond();
+        RecalculateModifiers();
     }
 
     public void GeneratePassivePoints()
@@ -21,11 +21,12 @@ public class PassivePointsGenerator : PointsBaseGenerator
     public void AddInstance()
     {
         NumberOfInstances++;
-        RecalculatePointsPerSecond();
+        RecalculateModifiers();
     }
 
-    private void RecalculatePointsPerSecond()
+    protected override void RecalculateModifiers()
     {
-        _pointsToGenerate = _basePointsPerSecond * NumberOfInstances;
+        base.RecalculateModifiers();
+        _pointsToGenerate *= NumberOfInstances;
     }
 }

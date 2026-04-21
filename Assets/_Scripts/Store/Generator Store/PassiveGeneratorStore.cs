@@ -11,7 +11,7 @@ public class PassiveGeneratorStore : MonoBehaviour
     [SerializeField] private GameObject _storeButtonPrefab;
     [SerializeField] private RectTransform _storeButtonsHolder;
 
-    private readonly List<StoreButton> _storeButtons = new();
+    private readonly List<GeneratorItemButton> _storeButtons = new();
 
     public static event Action<PassiveGeneratorData> GeneratorBought;
 
@@ -36,7 +36,7 @@ public class PassiveGeneratorStore : MonoBehaviour
         foreach (PassiveGeneratorData generatorData in _passiveGeneratorsDatas)
         {
             GameObject storeButtonObj = Instantiate(_storeButtonPrefab, _storeButtonsHolder);
-            StoreButton storeButton = storeButtonObj.GetComponent<StoreButton>();
+            GeneratorItemButton storeButton = storeButtonObj.GetComponent<GeneratorItemButton>();
 
             GeneratorStoreItem storeItem = new(generatorData);
             storeItem.Purchased += OnItemPurchased;

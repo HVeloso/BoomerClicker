@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a3ec09b599fe742b78664b35d41ade, type: 3}
   m_Name: Generator 6
   m_EditorClassIdentifier: 
-  _generatorName: Generator 3
+  _generatorName: Generator 6
   _pointsPerSeconds: 500
   _price: 1200
   _priceGrowth: 2.05

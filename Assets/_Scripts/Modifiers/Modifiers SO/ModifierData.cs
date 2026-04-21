@@ -11,7 +11,10 @@ public class ModifierData : ScriptableObject
     [SerializeField][Min(0)] private float _modifierValue;
     
     public string Name => _modifierName;
-    public float Price => _price;
+    public decimal Price => (decimal)_price;
+    public string Target => _targetGenerator;
+    public ModifierType Type => _modifierType;
+    public float Value => _modifierValue;
 
     public PointsGeneratorModifier GetModifier()
     {

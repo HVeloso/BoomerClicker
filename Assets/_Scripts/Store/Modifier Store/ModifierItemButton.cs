@@ -1,20 +1,19 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StoreButton : MonoBehaviour
+public class ModifierItemButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _nameTextMesh;
-    [SerializeField] private TextMeshProUGUI _pointsPerSecondTextMesh;
     [SerializeField] private TextMeshProUGUI _priceTextMesh;
-    [SerializeField] private TextMeshProUGUI _quantityTextMesh;
+    [SerializeField] private TextMeshProUGUI _modTargetNameTextMesh;
+    [SerializeField] private TextMeshProUGUI _modValueTextMesh;
     [Space]
     [SerializeField] private Image _backgroundImage;
     [SerializeField] private Button _storeButton;
 
-    private BuyGeneratorCommand _buyCommand;
-    private GeneratorStoreItem _storeItem;
+    private BuyModifierCommand _buyCommand;
+    private ModifierStoreItem _storeItem;
 
     private void OnEnable()
     {
@@ -26,31 +25,42 @@ public class StoreButton : MonoBehaviour
         _storeButton.onClick.RemoveListener(OnStoreButtonClicked);
     }
 
-    public void Initialize(GeneratorStoreItem storeItem, BuyGeneratorCommand command)
+    public void Initialize(ModifierStoreItem soreItem, BuyModifierCommand command)
     {
-        _storeItem = storeItem;
+        _storeItem = soreItem;
         _buyCommand = command;
 
         Refresh();
     }
-
-    public void OnCurrentPointsChanged(decimal currentPoints)
+    
+    private void Refresh()
     {
-        if (currentPoints < _storeItem.CurrentPrice) DeactiveItem();
-        else ActiveItem();
+        _nameTextMesh.text = _storeItem.Data.Name;
+        _priceTextMesh.text = $"${_storeItem.CurrentPrice:N2}";
+        _modTargetNameTextMesh.text = _storeItem.Data.Target;
+        _modValueTextMesh.text = $"+ {GetModValue()}";
+    }
+
+    private string GetModValue()
+    {
+        if (_storeItem.Data.Type == ModifierType.Percentage)
+        {
+            float modValue = _storeItem.Data.Value * 100f;
+            return $"{modValue}%";
+        }
+
+        return _storeItem.Data.Value.ToString("N0");
     }
 
     private void OnStoreButtonClicked()
     {
         if (_buyCommand.Execute()) Refresh();
     }
-
-    private void Refresh()
+    
+    public void OnCurrentPointsChanged(decimal currentPoints)
     {
-        _nameTextMesh.text = _storeItem.Data.GeneratorName;
-        _pointsPerSecondTextMesh.text = $"Points: {_storeItem.Data.PointsPerSeconds:N0}";
-        _priceTextMesh.text = $"${_storeItem.CurrentPrice:N2}";
-        _quantityTextMesh.text = $"x{_storeItem.BoughtQuantity}";
+        if (currentPoints < _storeItem.CurrentPrice) DeactiveItem();
+        else ActiveItem();
     }
 
     private void ActiveItem()

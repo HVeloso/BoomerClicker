@@ -17,12 +17,14 @@ public class PointsGeneratorHandler : MonoBehaviour
     {
         TimerManager.SecondHasPassed += OnSecondHasPassed;
         PassiveGeneratorStore.GeneratorBought += AddPassiveGenerator;
+        ModifierStoreController.ModifierBought += OnModifierBought;
     }
 
     private void OnDisable()
     {
         TimerManager.SecondHasPassed -= OnSecondHasPassed;
         PassiveGeneratorStore.GeneratorBought -= AddPassiveGenerator;
+        ModifierStoreController.ModifierBought -= OnModifierBought;
     }
 
     private void Awake()
@@ -54,6 +56,24 @@ public class PointsGeneratorHandler : MonoBehaviour
         {
             value.GeneratePassivePoints();
         }
+    }
+
+    private void OnModifierBought(PointsGeneratorModifier data)
+    {
+        PointsBaseGenerator target = GetGeneratorByName(data.Target) 
+            ?? throw new ArgumentNullException(data.Target, "Generator not found!");
+
+        target.AddModifier(data);
+    }
+
+    private PointsBaseGenerator GetGeneratorByName(string name)
+    {
+        if (name == "Main") return _mainPointsGenerator;
+
+        if (_pointsGenerator.ContainsKey(name))
+            return _pointsGenerator[name];
+
+        return null;
     }
 
     private decimal CalculateTotalPoinsPerSecond()
